@@ -16,8 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.countryinfo.CountryInfor.Country_Info_Activity;
 import com.example.countryinfo.CountryModel.CountryData;
 import com.example.countryinfo.R;
+import com.example.countryinfo.databinding.CountryDetailsBinding;
 
 import java.util.ArrayList;
 
@@ -25,12 +27,12 @@ public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHo
 
    public Context context;
    ArrayList<CountryData> dataArrayList;
-    private OnCountryClickListener listener;
+   // private OnCountryClickListener listener;
 
-    public AdapterCountry(Context context, ArrayList<CountryData> dataArrayList, OnCountryClickListener listener) {
+    public AdapterCountry(Context context, ArrayList<CountryData> dataArrayList) {
         this.context = context;
         this.dataArrayList = dataArrayList;
-        this.listener = listener;
+
     }
 
     @NonNull
@@ -56,20 +58,24 @@ public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHo
                 .into(holder.flag_image);
 
         holder.itemView.setOnClickListener(v->{
-            if(listener != null)
-            {
-                listener.onCountryClick(position);
-            }
+           Intent intent  = new Intent(v.getContext(), Country_Info_Activity.class);
+           intent.putExtra("country_name",country.getName());
+           intent.putExtra("country_capital",country.getCapital());
+           intent.putExtra("country_area",country.getArea()+" sq.km");
+           intent.putExtra("country_population",String.valueOf(country.getPopulation()));
+           intent.putExtra("flag_image",country.getFlag().getMedium());
+           v.getContext().startActivity(intent);
+
         });
 
 
 
     }
 
-    public interface OnCountryClickListener
-    {
-        void onCountryClick(int position);
-    }
+//    public interface OnCountryClickListener
+//    {
+//        void onCountryClick(CountryData country);
+//    }
     public void search_CountryEngine(ArrayList<CountryData> filterList)
     {
         dataArrayList = filterList;

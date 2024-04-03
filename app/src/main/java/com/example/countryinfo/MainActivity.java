@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements AdapterCountry.OnCountryClickListener {
+public class MainActivity extends AppCompatActivity  {
   private ActivityMainBinding binding;
   private ArrayList<CountryData> arrayList;
   private AdapterCountry adapterCountry;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterCountry.On
         setContentView(binding.getRoot());
 
         arrayList = new ArrayList<>();
-        adapterCountry = new AdapterCountry(this,arrayList,this);
+        adapterCountry = new AdapterCountry(this,arrayList);
         binding.countryRv.setLayoutManager(new LinearLayoutManager(this));
         binding.countryRv.setAdapter(adapterCountry);
         progressBar = new ProgressDialog(this);
@@ -126,11 +126,20 @@ public class MainActivity extends AppCompatActivity implements AdapterCountry.On
 
     }
 
-    @Override
-    public void onCountryClick(int position) {
-         CountryData country = arrayList.get(position);
-         Intent intent = new Intent(this, Country_Info_Activity.class);
-        intent.putExtra("country",country);
-         startActivity(intent);
-    }
+//    @Override
+//    public void onCountryClick(int position) {
+//         CountryData country = arrayList.get(position);
+//         Intent intent = new Intent(this, Country_Info_Activity.class);
+//         intent.putExtra("country",country);
+//         startActivity(intent);
+//    }
+
+//    @Override
+//    public void onCountryClick(CountryData country) {
+//        CountryData country = arrayList.get(country);
+//        Intent intent = new Intent(this, Country_Info_Activity.class);
+//        intent.putExtra("country",country);
+//        startActivity(intent);
+//
+//    }
 }

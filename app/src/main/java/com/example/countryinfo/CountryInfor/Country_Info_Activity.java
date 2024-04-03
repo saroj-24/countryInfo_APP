@@ -29,32 +29,22 @@ public class Country_Info_Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("country")) {
-            CountryData country = intent.getParcelableExtra("country");
-            if (country != null) {
-                binding.countryNameInfo.setText(country.getName());
-                binding.capitalInfo.setText(country.getCapital());
-                binding.areaInfo.setText(String.valueOf(country.getArea()+" sq.km"));
-                binding.populationInfo.setText(String.valueOf(country.getPopulation()));
+        Intent data = getIntent();
+        String countryname = data.getStringExtra("country_name");
+        String capital = data.getStringExtra("country_capital");
+        String area = data.getStringExtra("country_area");
+        String population = data.getStringExtra("country_population");
+        String flag  = data.getStringExtra("flag_image");
 
-
-                // Load flag image using Glide
-                Glide.with(this)
-                        .load(country.getFlag().getMedium())
-                        .placeholder(R.drawable.finish) // Placeholder image while loading
-                        .error(R.drawable.close) // Error image if Glide fails to load
-                        .into(binding.countryInfoImg);
-            }
-        }
-
-
-
-
-
-
-
-
+        Glide.with(this)
+                .load(flag)
+                .placeholder(R.drawable.finish) // Placeholder image while loading
+                .error(R.drawable.close)// Error image if Glide fails to load
+                .into(binding.countryInfoImg);
+        binding.countryNameInfo.setText(countryname);
+        binding.capitalInfo.setText(capital);
+        binding.areaInfo.setText(area);
+        binding.populationInfo.setText(population);
 
     }
 
