@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CountryInfor.Country_Info_Activity"
+    android:background="#35374B"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/earthmap"
+        android:adjustViewBounds="true"
+        android:scaleY="1.2"
+        android:scaleX="1.2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-100dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/russia"
+            android:elevation="40dp"
+            android:id="@+id/country_info_img"
+            android:layout_gravity="center_horizontal"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="-50dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            android:backgroundTint="#7A9D54"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/country_name_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Country name"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/capital_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="capital"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    />
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#03A9F4"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="23dp"
+                        android:src="@drawable/location" />
+
+                    <TextView
+                        android:id="@+id/area_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginLeft="2dp"
+                        android:text="544567"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeStepGranularity="2sp"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="23dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/overpopulation" />
+
+                    <TextView
+                        android:id="@+id/population_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginLeft="2dp"
+                        android:text="389899"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeStepGranularity="2sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
