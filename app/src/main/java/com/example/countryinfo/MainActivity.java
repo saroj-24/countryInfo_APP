@@ -125,21 +125,4 @@ public class MainActivity extends AppCompatActivity  {
         adapterCountry.search_CountryEngine(list);
 
     }
-
-//    @Override
-//    public void onCountryClick(int position) {
-//         CountryData country = arrayList.get(position);
-//         Intent intent = new Intent(this, Country_Info_Activity.class);
-//         intent.putExtra("country",country);
-//         startActivity(intent);
-//    }
-
-//    @Override
-//    public void onCountryClick(CountryData country) {
-//        CountryData country = arrayList.get(country);
-//        Intent intent = new Intent(this, Country_Info_Activity.class);
-//        intent.putExtra("country",country);
-//        startActivity(intent);
-//
-//    }
 }

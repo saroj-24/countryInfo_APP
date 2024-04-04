@@ -34,7 +34,13 @@ public class Country_Info_Activity extends AppCompatActivity {
         String capital = data.getStringExtra("country_capital");
         String area = data.getStringExtra("country_area");
         String population = data.getStringExtra("country_population");
+        String officialname = data.getStringExtra("official_name");
         String flag  = data.getStringExtra("flag_image");
+        String region= data.getStringExtra("region");
+        String subregion= data.getStringExtra("sub_region");
+        String callingcode = data.getStringExtra("calling_code");
+        String currency = data.getStringExtra("currency");
+        String symbol = data.getStringExtra("symbol");
 
         Glide.with(this)
                 .load(flag)
@@ -45,6 +51,16 @@ public class Country_Info_Activity extends AppCompatActivity {
         binding.capitalInfo.setText(capital);
         binding.areaInfo.setText(area);
         binding.populationInfo.setText(population);
+        binding.fullCapital.setText(capital);
+        binding.fulOfficialName.setText(officialname);
+        binding.fullPopulation.setText(population);
+        binding.fullTotalArea.setText(area);
+        binding.fullCallingCode.setText(callingcode);
+        binding.fullRegionName.setText(region);
+        binding.fullSubRegion.setText(subregion);
+        binding.fullCurrency.setText(currency);
+        binding.fullCurSysmbol.setText(symbol);
+
 
     }
 

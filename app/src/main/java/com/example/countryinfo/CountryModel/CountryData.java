@@ -2,6 +2,8 @@ package com.example.countryinfo.CountryModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 public class CountryData {
     @SerializedName("name")
     private String name;
@@ -18,12 +20,74 @@ public class CountryData {
     @SerializedName("flag")
     private Flag flag;
 
-    public CountryData(String name, String capital, double area, int population, Flag flag) {
+    @SerializedName("official_name")
+    private  String official_name;
+
+    @SerializedName("callingCode")
+    private String callingCode;
+
+    @SerializedName("region")
+    private String region;
+
+    @SerializedName("subregion")
+    private String subregion;
+
+//    @SerializedName("currencies")
+//    private Currencies currencies;
+
+    private Map<String, Map<String, String>> currencies;
+
+    public CountryData(String name, String capital, double area, int population, Flag flag, String official_name, String callingCode, String region, String subregion, Map<String, Map<String, String>> currencies) {
         this.name = name;
         this.capital = capital;
         this.area = area;
         this.population = population;
         this.flag = flag;
+        this.official_name = official_name;
+        this.callingCode = callingCode;
+        this.region = region;
+        this.subregion = subregion;
+        this.currencies = currencies;
+    }
+
+    public Map<String, Map<String, String>> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(Map<String, Map<String, String>> currencies) {
+        this.currencies = currencies;
+    }
+
+    public String getCallingCode() {
+        return callingCode;
+    }
+
+    public void setCallingCode(String callingCode) {
+        this.callingCode = callingCode;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getSubregion() {
+        return subregion;
+    }
+
+    public void setSubregion(String subregion) {
+        this.subregion = subregion;
+    }
+
+    public String getOfficial_name() {
+        return official_name;
+    }
+
+    public void setOfficial_name(String official_name) {
+        this.official_name = official_name;
     }
 
     public String getName() {
@@ -78,5 +142,47 @@ public class CountryData {
             this.medium = medium;
         }
     }
+    public static  class Currencies {
+        @SerializedName("aFN")
+        public AFN aFN;
+
+        public Currencies(AFN aFN) {
+            this.aFN = aFN;
+        }
+
+        public AFN getaFN() {
+            return aFN;
+        }
+    }
+    public  static  class AFN {
+
+        @SerializedName("name")
+        private String name;
+        @SerializedName("symbol")
+        private String symbol;
+
+        public AFN(String name, String symbol) {
+            this.name = name;
+            this.symbol = symbol;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSymbol() {
+            return symbol;
+        }
+
+        public void setSymbol(String symbol) {
+            this.symbol = symbol;
+        }
+    }
+
+
 
 }
