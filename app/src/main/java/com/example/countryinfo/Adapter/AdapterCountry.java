@@ -22,6 +22,7 @@ import com.example.countryinfo.R;
 import com.example.countryinfo.databinding.CountryDetailsBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHolder> {

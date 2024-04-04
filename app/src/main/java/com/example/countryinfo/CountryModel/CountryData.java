@@ -2,6 +2,7 @@ package com.example.countryinfo.CountryModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 import java.util.Map;
 
 public class CountryData {
@@ -31,10 +32,6 @@ public class CountryData {
 
     @SerializedName("subregion")
     private String subregion;
-
-//    @SerializedName("currencies")
-//    private Currencies currencies;
-
     private Map<String, Map<String, String>> currencies;
 
     public CountryData(String name, String capital, double area, int population, Flag flag, String official_name, String callingCode, String region, String subregion, Map<String, Map<String, String>> currencies) {
@@ -142,47 +139,5 @@ public class CountryData {
             this.medium = medium;
         }
     }
-    public static  class Currencies {
-        @SerializedName("aFN")
-        public AFN aFN;
-
-        public Currencies(AFN aFN) {
-            this.aFN = aFN;
-        }
-
-        public AFN getaFN() {
-            return aFN;
-        }
-    }
-    public  static  class AFN {
-
-        @SerializedName("name")
-        private String name;
-        @SerializedName("symbol")
-        private String symbol;
-
-        public AFN(String name, String symbol) {
-            this.name = name;
-            this.symbol = symbol;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSymbol() {
-            return symbol;
-        }
-
-        public void setSymbol(String symbol) {
-            this.symbol = symbol;
-        }
-    }
-
-
 
 }
