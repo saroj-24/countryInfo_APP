@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,6 +28,7 @@ import com.example.countryinfo.CountryModel.CountryData;
 import com.example.countryinfo.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -31,43 +36,82 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity  {
-  private ActivityMainBinding binding;
-  private ArrayList<CountryData> arrayList;
-  private AdapterCountry adapterCountry;
-  private ProgressDialog progressBar;
+public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
+    private ArrayList<CountryData> arrayList;
+    private AdapterCountry adapterCountry;
+    private ProgressDialog progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        arrayList = new ArrayList<>();
-        adapterCountry = new AdapterCountry(this,arrayList);
-        binding.countryRv.setLayoutManager(new LinearLayoutManager(this));
-        binding.countryRv.setAdapter(adapterCountry);
-        progressBar = new ProgressDialog(this);
-        progressBar.setMessage("Please wait.....");
-        progressBar.setCancelable(false);
-        progressBar.show();
-        getData();
-        searchEngine();
-
+        // Check if binding is null before accessing its properties
+        if (binding != null) {
+            arrayList = new ArrayList<>();
+            adapterCountry = new AdapterCountry(this, arrayList);
+            binding.countryRv.setLayoutManager(new LinearLayoutManager(this));
+            binding.countryRv.setAdapter(adapterCountry);
+            progressBar = new ProgressDialog(this);
+            progressBar.setMessage("Please wait.....");
+            progressBar.setCancelable(false);
+            progressBar.show();
+            getData();
+            searchEngine();
+        } else {
+            // Handle the case where binding is null
+            Log.e("MainActivity", "Binding is null");
+        }
     }
-    public void getData()
-    {
-        ApiUtilities.getApiInterface().getCountryDetails().enqueue(new Callback<Map<String,CountryData>>() {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id == R.id.sort_by_AtoZ) {
+            // sort a to z
+            Collections.sort(arrayList, CountryData.countrynameatoz);
+            Toast.makeText(MainActivity.this, "sorted by A to Z", Toast.LENGTH_SHORT).show();
+            adapterCountry.notifyDataSetChanged();
+            return true;
+        } else if (item_id == R.id.search_bar) {
+            // search bar
+            Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item_id == R.id.sort_by_ZtoA) {
+            // sort Z to A
+            Collections.sort(arrayList, CountryData.countrynameztoa);
+            Toast.makeText(MainActivity.this, "sorted by Z to A", Toast.LENGTH_SHORT).show();
+            adapterCountry.notifyDataSetChanged();
+            return true;
+        } else if (item_id == R.id.sortby_area) {
+            // sort by area
+            Collections.sort(arrayList, CountryData.countrynamearea);
+            Toast.makeText(MainActivity.this, "sorted by area", Toast.LENGTH_SHORT).show();
+            adapterCountry.notifyDataSetChanged();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void getData() {
+        ApiUtilities.getApiInterface().getCountryDetails().enqueue(new Callback<Map<String, CountryData>>() {
             @Override
-            public void onResponse(Call<Map<String,CountryData>> call, Response<Map<String,CountryData>> response) {
-                if(response.isSuccessful() && response.body() != null)
-                {
-                    Map<String, CountryData> countryDataMap = (Map<String, CountryData>) response.body();
+            public void onResponse(Call<Map<String, CountryData>> call, Response<Map<String, CountryData>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, CountryData> countryDataMap = response.body();
                     // Convert the map to a list if needed
                     arrayList.addAll(countryDataMap.values());
                     adapterCountry.notifyDataSetChanged();
                     progressBar.dismiss();
-                }
-                else {
+                } else {
                     String errorMessage = "Unsuccessful response";
                     if (response.errorBody() != null) {
                         try {
@@ -83,46 +127,41 @@ public class MainActivity extends AppCompatActivity  {
             }
 
             @Override
-            public void onFailure(Call<Map<String,CountryData>> call, Throwable t) {
-               // progressBar.dismiss();
+            public void onFailure(Call<Map<String, CountryData>> call, Throwable t) {
                 Log.e("API", "Failed to fetch data:" + t.getMessage());
                 Toast.makeText(MainActivity.this, "Sorry something wrong with api", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    public void searchEngine()
-    {
-        binding.searchCountry.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void searchEngine() {
+        if (binding != null && binding.searchCountrys != null) {
+            binding.searchCountrys.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
-            }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filer(s.toString());
-            }
-        });
+                @Override
+                public void afterTextChanged(Editable s) {
+                    filter(s.toString());
+                }
+            });
+        } else {
+            Log.e("MainActivity", "Binding or searchCountry is null");
+        }
     }
 
-    private void filer(String countryname) {
+    private void filter(String countryname) {
         ArrayList<CountryData> list = new ArrayList<>();
-        for(CountryData data: arrayList)
-        {
-            if(data.getName().toLowerCase().contains(countryname.toLowerCase()))
-            {
+        for (CountryData data : arrayList) {
+            if (data.getName().toLowerCase().contains(countryname.toLowerCase())) {
                 list.add(data);
-
             }
         }
         adapterCountry.search_CountryEngine(list);
-
     }
 }

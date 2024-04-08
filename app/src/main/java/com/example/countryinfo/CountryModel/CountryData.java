@@ -2,6 +2,7 @@ package com.example.countryinfo.CountryModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,26 @@ public class CountryData {
         this.subregion = subregion;
         this.currencies = currencies;
     }
+
+    public  static Comparator<CountryData>countrynameatoz = new Comparator<CountryData>() {
+        @Override
+        public int compare(CountryData o1, CountryData o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
+    public  static Comparator<CountryData>countrynameztoa = new Comparator<CountryData>() {
+        @Override
+        public int compare(CountryData o1, CountryData o2) {
+            return o2.getName().compareTo(o1.getName());
+        }
+    };
+    public static Comparator<CountryData>countrynamearea = new Comparator<CountryData>() {
+        @Override
+        public int compare(CountryData o1, CountryData o2) {
+            return (int) (o1.getArea()-o2.getArea());
+        }
+    };
+
 
     public Map<String, Map<String, String>> getCurrencies() {
         return currencies;
