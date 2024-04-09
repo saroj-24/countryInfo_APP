@@ -28,9 +28,10 @@ public class Country_Info_Activity extends AppCompatActivity {
         binding = ActivityCountryInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //hide actionbar using 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().hide();
+//        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent data = getIntent();
         String country_name = data.getStringExtra("country_name");

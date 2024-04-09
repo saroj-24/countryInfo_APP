@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">CountryInfo</string>
     <string name="country_name">Country name</string>
+    <string name="about">
+The country information application that provides users with details about various countries around the world. It allows users to explore different countries, their capitals, populations, areas, flags, official names, calling codes, regions, subregions, currencies, languages, timezones, and borders.
+
+    </string>
+
+    <string name="contact">Developer contact</string>
+    <string name="developer">Saroj Yadav</string>
+    <string name="company">From DynamicApp Studio</string>
+    <string name="email">urcoder75@gmail.com</string>
 </resources>

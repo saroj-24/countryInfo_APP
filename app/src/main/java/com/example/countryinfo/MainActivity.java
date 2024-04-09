@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setCancelable(false);
             progressBar.show();
             getData();
-            searchEngine();
         } else {
             // Handle the case where binding is null
             Log.e("MainActivity", "Binding is null");
@@ -69,34 +69,63 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.filter, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int item_id = item.getItemId();
-        if (item_id == R.id.sort_by_AtoZ) {
+
+
+        if (item_id == R.id.sort_by_AtoZ)
+        {
             // sort a to z
             Collections.sort(arrayList, CountryData.countrynameatoz);
             Toast.makeText(MainActivity.this, "sorted by A to Z", Toast.LENGTH_SHORT).show();
             adapterCountry.notifyDataSetChanged();
             return true;
-        } else if (item_id == R.id.search_bar) {
-            // search bar
-            Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+        }
+        else if (item_id==R.id.search_bar_action)
+        {
+
+           // search bar
+            SearchView searchView = (SearchView) item.getActionView();
+            searchView.setQueryHint("Search by name");
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    filter(newText);
+                    adapterCountry.notifyDataSetChanged();
+                    return true;
+                }
+            });
             return true;
-        } else if (item_id == R.id.sort_by_ZtoA) {
+
+        } else if (item_id == R.id.sort_by_ZtoA)
+        {
             // sort Z to A
             Collections.sort(arrayList, CountryData.countrynameztoa);
             Toast.makeText(MainActivity.this, "sorted by Z to A", Toast.LENGTH_SHORT).show();
             adapterCountry.notifyDataSetChanged();
             return true;
-        } else if (item_id == R.id.sortby_area) {
+        } else if (item_id == R.id.sortby_area)
+        {
             // sort by area
             Collections.sort(arrayList, CountryData.countrynamearea);
             Toast.makeText(MainActivity.this, "sorted by area", Toast.LENGTH_SHORT).show();
             adapterCountry.notifyDataSetChanged();
             return true;
+        } else if (item_id==R.id.about_developer) {
+            Intent intent =  new Intent(MainActivity.this,AboutActivity.class);
+            startActivity(intent);
+
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -134,26 +163,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void searchEngine() {
-        if (binding != null && binding.searchCountrys != null) {
-            binding.searchCountrys.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    filter(s.toString());
-                }
-            });
-        } else {
-            Log.e("MainActivity", "Binding or searchCountry is null");
-        }
-    }
+//    public void searchEngine() {
+//        binding.searchCountrys.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable s) {
+//                    filter(s.toString());
+//                }
+//            });
+//
+//    }
 
     private void filter(String countryname) {
         ArrayList<CountryData> list = new ArrayList<>();

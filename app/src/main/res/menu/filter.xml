@@ -2,16 +2,40 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Search"
-        android:id="@+id/search_bar"
-        android:icon="@drawable/search"/>
 
-    <item android:title="Sort by A-Z"
-        android:id="@+id/sort_by_AtoZ"/>
+   <item android:id="@+id/more"
+       android:title=""
+       app:showAsAction="always"
+       android:icon="@drawable/baseline_more_option">
 
-    <item android:id="@+id/sort_by_ZtoA"
-        android:title="sort by Z-A"/>
+       <menu>
+           <item android:id="@+id/search_bar_action"
+               android:title="Search"
+               android:icon="@drawable/baseline_search"
+               app:showAsAction="ifRoom|collapseActionView"
+               app:actionViewClass="android.widget.SearchView" />
 
-    <item android:title="sort by area"
-        android:id="@+id/sortby_area"/>
+           <item android:title="Sort by A-Z"
+               android:icon="@drawable/baseline_arrow_downward"
+               android:iconTint="@color/black"
+               android:id="@+id/sort_by_AtoZ"/>
+
+           <item android:id="@+id/sort_by_ZtoA"
+               android:icon="@drawable/baseline_arrow_upward_24"
+               android:iconTint="@color/black"
+               android:title="Sort by Z-A"/>
+
+           <item android:title="Sort by area"
+               android:iconTint="@color/black"
+               android:icon="@drawable/baseline_area_chart_24"
+               android:id="@+id/sortby_area"/>
+
+           <item android:id="@+id/about_developer"
+               android:icon="@drawable/baseline_information"
+               android:iconTint="@color/black"
+               android:title="About"/>
+       </menu>
+
+   </item>
+
 </menu>

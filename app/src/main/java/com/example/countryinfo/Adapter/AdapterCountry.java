@@ -28,13 +28,13 @@ import java.util.Map;
 public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHolder> {
 
    public Context context;
-   ArrayList<CountryData> dataArrayList;
+   ArrayList<CountryData> originaldataArrayList;
+
    // private OnCountryClickListener listener;
 
-    public AdapterCountry(Context context, ArrayList<CountryData> dataArrayList) {
+    public AdapterCountry(Context context, ArrayList<CountryData> originaldataArrayList) {
         this.context = context;
-        this.dataArrayList = dataArrayList;
-
+        this.originaldataArrayList = originaldataArrayList;
     }
 
     @NonNull
@@ -43,10 +43,9 @@ public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHo
         View myview = LayoutInflater.from(context).inflate(R.layout.country_details,parent,false);
         return new myviewHolder(myview);
     }
-
     @Override
     public void onBindViewHolder(@NonNull myviewHolder holder, int position) {
-        CountryData country = dataArrayList.get(position);
+        CountryData country = originaldataArrayList.get(position);
         holder.countryname.setText(country.getName());
         holder.country_capital.setText(country.getCapital());
         holder.countryarea.setText(String.valueOf(country.getArea()+" sq.km")); // Convert int to String
@@ -95,14 +94,14 @@ public class AdapterCountry extends RecyclerView.Adapter<AdapterCountry.myviewHo
 
     public void search_CountryEngine(ArrayList<CountryData> filterList)
     {
-        dataArrayList = filterList;
+        originaldataArrayList = filterList;
         notifyDataSetChanged();
     }
 
 
     @Override
     public int getItemCount() {
-        return dataArrayList.size();
+        return originaldataArrayList.size();
     }
 
     public  class myviewHolder extends RecyclerView.ViewHolder{
